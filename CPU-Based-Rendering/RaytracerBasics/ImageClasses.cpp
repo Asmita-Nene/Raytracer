@@ -61,7 +61,7 @@ void PPMImageWriter::writeData(std::string& filename, Image& img) {
 		for (int j = 0; j < width; j++) {
 			//j = x co-ordinate, i = y co-ordinate
 			color = img.readPixel(j, i);
-			file << color.x << " " << color.y << " " << color.z << "\n";
+			file << int(color.x) << " " << int(color.y) << " " << int(color.z) << "\n";
 		}
 	}
 
