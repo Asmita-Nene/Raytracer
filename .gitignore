@@ -13,7 +13,6 @@ x86/
 
 # Render outputs
 *.ppm
-*.png
 
 # CMake / cache
 CMakeFiles/
