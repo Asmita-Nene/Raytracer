@@ -20,12 +20,12 @@ int Camera::getImgWidth() const {
 	return imageWidth;
 }
 
-Ray Camera::generateRay(int x, int y) const {
+Ray Camera::generateRay(double x, double y) const {
 	//x = related to width, horizontal and y = related to height, vertical
 	
 	//add 0.5 to get the pixel center
-	double u = double(x + 0.5) / imageWidth;
-	double v = double(y + 0.5) / imageHeight;
+	double u = x / imageWidth;
+	double v = y / imageHeight;
 
 	Ray ray(center, ((lowerLeftCorner + (horizDimen * u) + (vertDimen * v)) - center));
 	return ray;

@@ -22,7 +22,7 @@ public:
 	int getImgHeight()const;
 	int getImgWidth() const ;
 
-	Ray generateRay(int x, int y) const ;
+	Ray generateRay(double x, double y) const ;
 };
 
 #endif // !CAMERA_HPP

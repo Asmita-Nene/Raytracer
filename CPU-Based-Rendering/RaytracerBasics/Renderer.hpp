@@ -10,9 +10,10 @@ class Renderer {
 	Camera& camera;
 	Image& image;
 	Scene& scene;
+	int samplesPerPixel;		//may need to change the datatype later
 
 public:
-	Renderer(Camera& cam, Scene& scene, Image& img);
+	Renderer(Camera& cam, Scene& scene, Image& img, int samplesPerPixel);
 	
 	void renderImage();
 };
