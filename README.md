@@ -14,7 +14,7 @@ The renderer currently produces a shaded sphere where pixel color is derived fro
 Milestones planned:
 - [x] Core ray-object intersection
 - [x] Normal-based shading
-- [ ] Diffuse materials
+- [x] Diffuse materials
 - [ ] Point lights and shadows
 - [ ] Reflections and refractions
 - [ ] BVH acceleration structure
@@ -22,18 +22,18 @@ Milestones planned:
 - [ ] CUDA / GPU rendering
  
 ## Architecture
- 
+
 The codebase is structured around clear separation of concerns — each class has one job.
 A few intentional design decisions:
- 
+
 - **`Renderer`** owns the render loop but delegates everything — ray generation to `Camera`, intersection to `Scene`, output to `Image`. This makes it easy to swap in a CUDA kernel later without touching shading logic.
 - **`Primitive`** is an abstract base class, so adding geometry (triangles, meshes) doesn't touch existing code.
+- **`Material`** is an abstract base class — `Diffuse`, and later `Metal`, `Glass` etc. implement `getRay()` and `getAlbedo()` so the renderer never needs to know which material it's dealing with.
 - **`HitRecord`** is a plain data struct, not owned by any object — keeps intersection and shading decoupled.
 - `Point3` and `Color` are type aliases for `Vector3`, which keeps the math layer clean without unnecessary wrapper classes.
 
- 
 ## Project Structure
- 
+
 ```
 Raytracer/
 ├── CPU-Based-Rendering/
@@ -41,13 +41,14 @@ Raytracer/
 │       ├── Camera.cpp / .hpp
 │       ├── HitRecord.hpp
 │       ├── ImageClasses.cpp / .hpp
+│       ├── Material.cpp / .hpp
 │       ├── Primitive.cpp / .hpp
 │       ├── Renderer.cpp / .hpp
 │       ├── Scene.cpp / .hpp
-│       └── UtilityClasses.cpp / .hpp
+│       ├── UtilityClasses.cpp / .hpp
+│       └── RaytracerBasics.cpp
 └── GPU-Based-Rendering/           # Planned
 ```
- 
  
 ## Building
  
