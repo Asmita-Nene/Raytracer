@@ -67,8 +67,6 @@ void Renderer::renderImage() {
 
 			color = color / samplesPerPixel;
 
-			color = Color(sqrt(color.x), sqrt(color.y), sqrt(color.z));		//gamma correction
-
 			image.setPixel(j, i, color);
 
 		}

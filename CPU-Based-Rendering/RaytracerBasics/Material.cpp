@@ -20,7 +20,7 @@ Ray Diffuse::getRay(Point3 intersectionPt, Vector3 normal) {
 		// the following check ensures that the resulting ray is not going inside the object, and is actually being scattered on the outside
 		
 		double x = randomDouble(-1.00, 1.00);
-		double y = randomDouble(-1.00, 1.00);
+		double y = randomDouble(-1.00, 1.00);	
 		double z = randomDouble(-1.00, 1.00);
 		Vector3 ray(x, y, z);
 		if (ray.getMagnitude() > 1) {

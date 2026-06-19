@@ -22,7 +22,7 @@ int main() {
 
 	Camera camera(camCenter, 1, viewportHeight, viewportWidth, imgWidth, imgHeight);
 	Image image(imgHeight, imgWidth);
-	PPMImageWriter writer;
+	std::unique_ptr<ImageWriter> writer = std::make_unique<PPMImageWriter>();
 
 
 	Point3 sphereCen(0, 0, -2);
@@ -47,7 +47,7 @@ int main() {
 	Renderer renderer(camera, scene, image, samplesPerPixel, depthReflections);
 	renderer.renderImage();
 
-	writer.writeData(opImgFile, image, colorDepth);
+	writer->writeData(opImgFile, image, colorDepth, 2.2f);
 
 
 	return 0;

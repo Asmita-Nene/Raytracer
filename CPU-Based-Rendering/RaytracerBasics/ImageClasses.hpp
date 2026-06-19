@@ -23,14 +23,14 @@ public:
 
 class ImageWriter {
 public:
-	virtual void writeData(std::string& filename, Image& img, int colorDepth) = 0;	
+	virtual void writeData(std::string& filename, Image& img, int colorDepth, float gamma = 2.2f) = 0;	
 };
 
 
 class PPMImageWriter : public ImageWriter {
 public:
 
-	void writeData(std::string& filename, Image& img, int colorDepth);
+	void writeData(std::string& filename, Image& img, int colorDepth, float gamma);
 
 };
 

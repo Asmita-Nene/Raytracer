@@ -39,7 +39,7 @@ Color Image:: readPixel(int x, int y) const {
 
 //---------PPMWriter class definitions-------//
 
-void PPMImageWriter::writeData(std::string& filename, Image& img, int colorDepth) {
+void PPMImageWriter::writeData(std::string& filename, Image& img, int colorDepth, float gamma) {
 	
 	std::ofstream file;
 
@@ -61,8 +61,10 @@ void PPMImageWriter::writeData(std::string& filename, Image& img, int colorDepth
 		for (int j = 0; j < width; j++) {
 			//j = x co-ordinate, i = y co-ordinate
 			color = img.readPixel(j, i);	//converting to proper bit resolution
+
+			Color colorFinal = Color(std::pow(color.x, 1.0f/gamma), std::pow(color.y, 1.0f / gamma), std::pow(color.z, 1.0f / gamma));		//gamma correction (2.2 is standard for monitors)
 			
-			file << int(color.x * colorRes) << " " << int(color.y * colorRes) << " " << int(color.z * colorRes) << "\n";
+			file << int(colorFinal.x * colorRes) << " " << int(colorFinal.y * colorRes) << " " << int(colorFinal.z * colorRes) << "\n";
 		}
 	}
 
