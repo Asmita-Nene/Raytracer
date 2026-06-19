@@ -3,8 +3,9 @@
 #include"UtilityClasses.hpp"
 #include"HitRecord.hpp"
 #include"Primitive.hpp"
+#include "Material.hpp"
 
-Sphere::Sphere(const Vector3& cen, const double rad) : center(cen), radius(rad) {}
+Sphere::Sphere(const Vector3& cen, const double rad, Material* material) : center(cen), radius(rad), material(material) {}
 
 bool Sphere::intersect(const Ray& ray, HitRecord& record) {
 	double a = ray.direction.dot(ray.direction);
@@ -23,15 +24,19 @@ bool Sphere::intersect(const Ray& ray, HitRecord& record) {
 			}
 		}
 
-		record.IntersectionPoint = ray.pointAt(smallestT);
-		record.Normal = (record.IntersectionPoint - center).getNormalized();
+		record.intersectionPoint = ray.pointAt(smallestT);
+		record.normal = (record.intersectionPoint - center).getNormalized();
 		record.t = smallestT;
-		//TODO the face logic will be implemented later, in some time
+		record.material = material;
+		//TODO the face logic will be implemented later
 		return true;
 	}
+
 	else {
 		return false;
 	}
+
+	
 
 }
 

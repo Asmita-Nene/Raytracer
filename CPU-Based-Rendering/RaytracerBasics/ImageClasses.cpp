@@ -19,7 +19,7 @@ int Image::getWidth() const {
 }
 
 void Image::setPixel(int x, int y, Color color) {
-	//its assumed that color is in proper range of 0-255
+	//the color is in normalized form, it will be converted to correct form when writing to file
 	size_t idx = (size_t(y) * size_t(width)) + size_t(x);
 	data[idx] = color;
 }
@@ -39,7 +39,7 @@ Color Image:: readPixel(int x, int y) const {
 
 //---------PPMWriter class definitions-------//
 
-void PPMImageWriter::writeData(std::string& filename, Image& img) {
+void PPMImageWriter::writeData(std::string& filename, Image& img, int colorDepth) {
 	
 	std::ofstream file;
 
@@ -47,21 +47,22 @@ void PPMImageWriter::writeData(std::string& filename, Image& img) {
 	if (!file.is_open()) {
 		std::cerr << "Failed to open file: " << filename << "\n";
 	}
-
+	int colorRes = std::pow(2, colorDepth) - 1;
 	int height = img.getHeight();
 	int width = img.getWidth();
 	//writing the PPM header
 	file << "P3\n"; // PPM format
 	file << width <<" "<< height <<"\n"; // width and height
-	file << "255\n"; // max color value
+	file << colorRes << "\n"; // max color value
 
 	//write the image data
 	Color color;
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			//j = x co-ordinate, i = y co-ordinate
-			color = img.readPixel(j, i);
-			file << int(color.x) << " " << int(color.y) << " " << int(color.z) << "\n";
+			color = img.readPixel(j, i);	//converting to proper bit resolution
+			
+			file << int(color.x * colorRes) << " " << int(color.y * colorRes) << " " << int(color.z * colorRes) << "\n";
 		}
 	}
 

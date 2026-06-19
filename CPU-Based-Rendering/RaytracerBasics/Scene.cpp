@@ -15,10 +15,9 @@ void Scene::addPrimitiveObject(std::unique_ptr<Primitive> obj) {
 
 bool Scene::intersect(const Ray& ray, HitRecord& record) {
 	//Loop through all objects to get which object it intersects and the value of t
-	//TODO I think logic here will change when transparent objects are introduced
 
 	HitRecord tempRecord;
-	record.t = std::numeric_limits<double>::infinity();		//init to this value, not taking -1 here, as it geometrically signifies something, and will be better this way in future implementations
+	record.t = std::numeric_limits<double>::infinity();		//init to infinity, not taking -1 here, as it geometrically signifies something, and will be better this way in future implementations
 
 
 	for (size_t i = 0; i < objects.size(); i++) {

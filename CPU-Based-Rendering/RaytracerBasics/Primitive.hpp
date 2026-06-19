@@ -3,6 +3,7 @@
 
 #include "UtilityClasses.hpp"
 #include "HitRecord.hpp"
+#include "Material.hpp"
 
 
 class Primitive {
@@ -16,10 +17,10 @@ public:
 class Sphere : public Primitive {
 	Point3 center;
 	double radius;
+	Material* material;
 
 public:
-	
-	Sphere(const Vector3& cen, const double rad);
+	Sphere(const Vector3& cen, const double rad, Material* material);
 
 	bool intersect(const Ray& ray, HitRecord& record);
 

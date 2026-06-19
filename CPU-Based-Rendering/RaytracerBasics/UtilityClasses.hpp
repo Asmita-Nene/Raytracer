@@ -4,6 +4,9 @@
 #include<fstream>
 #include<vector>
 
+double randomDouble(double min, double max);
+
+
 class Vector3 {
 public:
 	double x, y, z;
@@ -16,15 +19,21 @@ public:
 
 	Vector3 operator+(const Vector3& other) const;
 
+	Vector3 operator+(const double n) const;
+
 	Vector3 operator-(const Vector3& other) const;
 
 	Vector3 operator*(const double n) const;
+
+	Vector3 operator*(const Vector3& other) const;
 
 	Vector3 operator / (const double n) const;
 
 	double dot(const Vector3& other)const;
 
 	Vector3 getNormalized() const;
+
+	double getMagnitude() const;
 
 };
 

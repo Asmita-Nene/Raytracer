@@ -3,6 +3,18 @@
 #include<vector>
 #include "UtilityClasses.hpp"
 
+#include <random>
+
+double randomDouble(double min, double max) {
+	static std::random_device rd;
+	static std::mt19937 gen(rd());
+	static std::uniform_real_distribution<double> dist(min, max);
+
+	return dist(gen);
+}
+
+
+
 //----Vector3 class definations------------------------------------------------//
 
 	Vector3::Vector3() : x(0), y(0), z(0) {}
@@ -16,12 +28,20 @@
 		return Vector3(x + other.x, y + other.y, z + other.z);
 	}
 
+	Vector3 Vector3:: operator+(const double n) const {
+		return Vector3(x + n, y + n, z + n);
+	}
+
 	Vector3 Vector3::operator-(const Vector3& other) const {
 		return Vector3(x - other.x, y - other.y, z - other.z);
 	}
 
 	Vector3 Vector3::operator*(const double n) const {
 		return Vector3(x * n, y * n, z * n);
+	}
+
+	Vector3 Vector3::operator*(const Vector3& other) const {
+		return Vector3(x * other.x, y * other.y, z * other.z);
 	}
 
 	Vector3 Vector3::operator/(const double n) const {
@@ -35,6 +55,10 @@
 	Vector3 Vector3::getNormalized() const {
 		double mag = sqrt((x * x) + (y * y) + (z * z));
 		return Vector3((x / mag), (y / mag), (z / mag));
+	}
+
+	double Vector3::getMagnitude() const {
+		return sqrt((x * x) + (y * y) + (z * z));
 	}
 
 

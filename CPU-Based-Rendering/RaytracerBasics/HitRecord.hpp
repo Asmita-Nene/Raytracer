@@ -2,16 +2,17 @@
 #define HITRECORD_HPP
 
 #include "UtilityClasses.hpp"
+#include "Material.hpp"
 
 //Stores the information related to one intersection of ray and object, basically to color one pixel, we need this data
 class HitRecord {
 public:
 	double t;
-	Point3 IntersectionPoint;
-	Vector3 Normal;
-	bool isFrontFace;	//look into this logic a bit, setFaceNormal method required?
+	Point3 intersectionPoint;
+	Vector3 normal;
+	bool isFrontFace;
 
-	//will also contain the material info in future
+	Material* material = nullptr;
 };
 
 #endif // !HITRECORD_HPP

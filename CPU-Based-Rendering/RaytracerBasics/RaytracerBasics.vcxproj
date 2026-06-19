@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ImageClasses.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="RaytracerBasics.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="HitRecord.hpp" />
     <ClInclude Include="ImageClasses.hpp" />
+    <ClInclude Include="Material.hpp" />
     <ClInclude Include="Primitive.hpp" />
     <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="Scene.hpp" />
