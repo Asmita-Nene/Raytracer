@@ -5,7 +5,7 @@
 
 class Material {
 public:
-	virtual Ray getRay(Point3 intersectionPt, Vector3 normal) = 0;
+	virtual Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal) = 0;
 	virtual Color getAlbedo() = 0;
 
 };
@@ -17,11 +17,26 @@ class Diffuse : public Material {
 	Color albedo;		
 
 public:
-	Diffuse(Color baseColor);
-
+	Diffuse(Color albedo);
 	Color getAlbedo();	
-	Ray getRay(Point3 intersectionPt, Vector3 normal);
+	Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal);
 
 };
+
+
+
+class Metal : public Material {
+	Color albedo;
+	double rx;
+	double ry;
+	bool isAnisotropic;
+
+public:
+	Metal(Color albedo, double rx, double ry, bool isAnisotropic = false);
+	Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal);
+	Color getAlbedo();
+
+};
+
 
 #endif // !MATERIAL_HPP

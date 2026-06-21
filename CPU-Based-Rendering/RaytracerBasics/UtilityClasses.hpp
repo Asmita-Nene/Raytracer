@@ -31,6 +31,8 @@ public:
 
 	double dot(const Vector3& other)const;
 
+	Vector3 cross(const Vector3& other)const;
+
 	Vector3 getNormalized() const;
 
 	double getMagnitude() const;
