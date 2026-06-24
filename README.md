@@ -9,17 +9,27 @@ Started this to get hands-on with systems-level C++ and eventually CUDA. The goa
  
 ## Current State
  
-The renderer currently produces a shaded sphere where pixel color is derived from surface normals. No materials or lighting yet — this is the first working pass before those systems get layered in.
+The renderer currently supports diffuse and metal materials with physically-based reflection. Metal supports both isotropic (uniform roughness) and anisotropic (directional roughness) modes.
  
 Milestones planned:
 - [x] Core ray-object intersection
 - [x] Normal-based shading
 - [x] Diffuse materials
+- [x] Metal materials with isotropic roughness
+- [x] Metal materials with anisotropic roughness (see known limitations)
+- [ ] Dielectric / glass materials
 - [ ] Point lights and shadows
-- [ ] Reflections and refractions
 - [ ] BVH acceleration structure
 - [ ] Multithreading
 - [ ] CUDA / GPU rendering
+
+## Known Limitations
+
+Anisotropic metal on curved surfaces — the anisotropic roughness model stretches highlights into directional streaks (like brushed metal), but the effect is not visually obvious on spheres. This is because the tangent frame (T, B vectors) is recomputed from the surface normal at each hit point, and on a sphere the normal rotates continuously across the surface — so the streak direction rotates with it rather than remaining consistent. On flat geometry the effect is pronounced and correct.
+
+Two proper fixes are planned:
+- **UV-based tangents** — derive T from the UV gradient direction on the surface, giving a consistent streak direction tied to the geometry.
+- **Anisotropic rotation parameter** — allow rotating T and B around N by a user-controlled angle, equivalent to Blender's anisotropic rotation slider.
  
 ## Architecture
 
@@ -28,7 +38,7 @@ A few intentional design decisions:
 
 - **`Renderer`** owns the render loop but delegates everything — ray generation to `Camera`, intersection to `Scene`, output to `Image`. This makes it easy to swap in a CUDA kernel later without touching shading logic.
 - **`Primitive`** is an abstract base class, so adding geometry (triangles, meshes) doesn't touch existing code.
-- **`Material`** is an abstract base class — `Diffuse`, and later `Metal`, `Glass` etc. implement `getRay()` and `getAlbedo()` so the renderer never needs to know which material it's dealing with.
+- **`Material`** is an abstract base class — `Diffuse`, `Metal`, and later `Glass` etc. implement `getRay()` and `getAlbedo()` so the renderer never needs to know which material it's dealing with.
 - **`HitRecord`** is a plain data struct, not owned by any object — keeps intersection and shading decoupled.
 - `Point3` and `Color` are type aliases for `Vector3`, which keeps the math layer clean without unnecessary wrapper classes.
 
