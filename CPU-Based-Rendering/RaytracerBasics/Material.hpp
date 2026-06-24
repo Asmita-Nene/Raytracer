@@ -7,7 +7,6 @@ class Material {
 public:
 	virtual Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal) = 0;
 	virtual Color getAlbedo() = 0;
-
 };
 
 
@@ -20,7 +19,6 @@ public:
 	Diffuse(Color albedo);
 	Color getAlbedo();	
 	Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal);
-
 };
 
 
@@ -35,7 +33,16 @@ public:
 	Metal(Color albedo, double rx, double ry, bool isAnisotropic = false);
 	Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal);
 	Color getAlbedo();
+};
 
+
+class Dielectric :public Material {
+	//albedo is always (1, 1, 1) here
+	double refract_idx;
+public:
+	Dielectric(double refract_idx);
+	Ray getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal);
+	Color getAlbedo();
 };
 
 

@@ -15,9 +15,9 @@ int main() {
 	int imgWidth = 400;
 	double viewportHeight = 2;
 	double viewportWidth = 4;
-	std::string opImgFile = "isotropic_metal_material_output.ppm";
+	std::string opImgFile = "dielectric_material_output.ppm";
 	int samplesPerPixel = 100;
-	int depthReflections = 20;
+	int depthReflections = 50;
 	int colorDepth = 8;				//goes from 0 to 255 for representing intensity level of a pixel
 
 	Camera camera(camCenter, 1, viewportHeight, viewportWidth, imgWidth, imgHeight);
@@ -29,7 +29,7 @@ int main() {
 	double sphereRad = 0.75;
 	Color base1(1.00, 0.00, 0.00);			//the colors will be represented in normalized form from 0-1, so it becomes easy to change the colorDepth as needed
 	
-	//the metal sphere
+	//the glass sphere
 	Point3 sphereCen3(1, 0, -2);
 	double sphereRad3 = 0.75;
 	Color base3(0.80, 0.80, 0.80);
@@ -39,7 +39,7 @@ int main() {
 	Color base2(0.20, 0.80, 0.80);
 	
 	auto mat1 = std::make_unique<Diffuse>(base1);
-	auto mat3 = std::make_unique<Metal>(base3, 0.4, 0.01, false);
+	auto mat3 = std::make_unique<Dielectric>(1.30);
 	auto mat2 = std::make_unique<Diffuse>(base2);
 
 

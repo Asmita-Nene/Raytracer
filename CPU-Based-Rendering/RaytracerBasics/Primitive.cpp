@@ -17,9 +17,9 @@ bool Sphere::intersect(const Ray& ray, HitRecord& record) {
 	if (discriminant >= 0) {
 	//Intersection is present
 		double smallestT = (-b - sqrt(discriminant)) / (2 * a);
-		if (smallestT < 1e-8) {
+		if (smallestT < 1e-3) {
 			smallestT = (-b + sqrt(discriminant)) / (2 * a);
-			if (smallestT < 1e-8) {
+			if (smallestT < 1e-3) {
 				return false;
 			}
 		}

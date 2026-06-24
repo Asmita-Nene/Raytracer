@@ -22,9 +22,10 @@ Color Renderer::getColor(const Ray& ray, int depth) {
 	if (!scene.intersect(ray, record)) {
 		// doesn't intersect anything so simple sky gradient, white to blue as background
 		//TODO Change this to support different backgrounds
-
 		double t = 0.5 * (ray.direction.getNormalized().y + 1.0);
-		return  (Color(1.0, 1.0, 1.0) * Color(0.5, 0.7, 1.0) * (1.0 - t)) * t;
+
+		//return  (Color(1.0, 1.0, 1.0) * Color(0.5, 0.7, 1.0) * (1.0 - t)) * t;
+		return Color(0.70, 0.70, 0.80);
 	}
 
 	// get the new ray from the material
