@@ -15,7 +15,7 @@ int main() {
 	int imgWidth = 400;
 	double viewportHeight = 2;
 	double viewportWidth = 4;
-	std::string opImgFile = "dielectric_material_output.ppm";
+	std::string opImgFile = "dielectric_material_tint_output.ppm";
 	int samplesPerPixel = 100;
 	int depthReflections = 50;
 	int colorDepth = 8;				//goes from 0 to 255 for representing intensity level of a pixel
@@ -36,10 +36,10 @@ int main() {
 
 	Point3 biggerSphCen(0, 20.75, -2);
 	double biggerSphRad = 20;
-	Color base2(0.20, 0.80, 0.80);
+	Color base2(0.10, 0.10, 0.10);
 	
 	auto mat1 = std::make_unique<Diffuse>(base1);
-	auto mat3 = std::make_unique<Dielectric>(1.30);
+	auto mat3 = std::make_unique<Dielectric>(1.80, Color(0.50, 0.05, 0.05));	//making glass with cyan tint
 	auto mat2 = std::make_unique<Diffuse>(base2);
 
 

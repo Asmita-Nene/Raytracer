@@ -7,7 +7,7 @@
 //--Diffuse Implementation--//
 Diffuse::Diffuse(Color albedo) : albedo(albedo) {}
 
-Color Diffuse::getAlbedo() {
+Color Diffuse::getAttenuation(double distance, bool isInnerFace) {
 	return albedo;
 }
 
@@ -40,7 +40,7 @@ Ray Diffuse::getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 norma
 Metal::Metal(Color albedo,  double rx, double ry, bool isAnisotropic) : 
 	albedo(albedo),  rx(rx), ry(ry), isAnisotropic(isAnisotropic) {}
 
-Color Metal::getAlbedo() {
+Color Metal::getAttenuation(double distance, bool isInnerFace) {
 	return albedo;
 }
 
@@ -100,10 +100,21 @@ Ray Metal::getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal)
 
 //--Dielectric Implementation--//
 
-Dielectric::Dielectric(double refract_idx) : refract_idx(refract_idx) {}
+Dielectric::Dielectric(double refract_idx, Color tint) : refract_idx(refract_idx), tint(tint) {
+	albedo = Color(1.0, 1.0, 1.0);
+}
 
-Color Dielectric::getAlbedo() {
-	return Color(1.00, 1.00, 1.00);
+Color Dielectric::getAttenuation(double distance, bool isInnerFace) {
+	if(isInnerFace){
+		Color transmitted;
+		transmitted.x = std::exp((-tint.x) * distance);
+		transmitted.y = std::exp((-tint.y) * distance);
+		transmitted.z = std::exp((-tint.z) * distance);
+		return (albedo * transmitted);
+	}
+	else {
+		return albedo;
+	}
 }
 
 Ray Dielectric::getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal) {

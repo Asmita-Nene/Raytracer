@@ -31,8 +31,15 @@ Color Renderer::getColor(const Ray& ray, int depth) {
 	// get the new ray from the material
 	Ray reflRay = record.material->getRay(ray,record.intersectionPoint, record.normal);
 
-	//then get the base color and recursively call the function
-	return record.material->getAlbedo() * getColor(reflRay, depth - 1);
+	//check if the ray hits the inner face, mainly for the dielectric implementation
+	bool isInnerFace = false;
+	if (ray.direction.dot(record.normal) > 0) {
+		isInnerFace = true;
+	}
+	double distance = (record.intersectionPoint - ray.origin).getMagnitude();
+	
+
+	return record.material->getAttenuation(distance, isInnerFace) * getColor(reflRay, depth - 1);
 		
 }
 
