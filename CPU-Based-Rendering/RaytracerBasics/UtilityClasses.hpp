@@ -6,6 +6,8 @@
 
 double randomDouble(double min, double max);
 
+double degreeToRadian(double angle);
+
 
 class Vector3 {
 public:
@@ -16,6 +18,8 @@ public:
 	Vector3(double x, double y, double z);
 
 	void print();
+
+	void display()const;
 
 	Vector3 operator+(const Vector3& other) const;
 

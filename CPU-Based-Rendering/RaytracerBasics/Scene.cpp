@@ -24,7 +24,7 @@ bool Scene::intersect(const Ray& ray, HitRecord& record) {
 		if (objects[i].get()->intersect(ray, tempRecord)) {
 			//the ray intersects the object given
 
-			if (record.t == -1 || record.t > tempRecord.t) {
+			if (record.t > tempRecord.t) {
 				record = tempRecord;	//for storing the smallest possible t
 			}
 		}

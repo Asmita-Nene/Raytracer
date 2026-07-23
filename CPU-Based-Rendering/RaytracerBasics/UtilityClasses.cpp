@@ -13,9 +13,15 @@ double randomDouble(double min, double max) {
 	return dist(gen);
 }
 
-
+double degreeToRadian(double angle) {
+	return (angle * 3.1415926535897 / 180.00);
+}
 
 //----Vector3 class definations------------------------------------------------//
+
+void Vector3::display() const{
+	std::cout << x << " " << y<<" " << z<<" " << std::endl;
+	}
 
 	Vector3::Vector3() : x(0), y(0), z(0) {}
 	Vector3::Vector3(double x, double y, double z) : x(x), y(y), z(z) {}

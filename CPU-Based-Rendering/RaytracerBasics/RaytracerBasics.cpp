@@ -10,17 +10,20 @@
 
 
 int main() {
-	Point3 camCenter(0, 0, 0);
+	Point3 camCenter(-2, -2, 1);
+	Point3 camTarget(0, 0, -2);
 	int imgHeight = 200;
 	int imgWidth = 400;
-	double viewportHeight = 2;
-	double viewportWidth = 4;
-	std::string opImgFile = "dielectric_material_tint_output.ppm";
+	Vector3 worldUp(0, 1, 0);		//Y axis(as per convention in majority Graphics engines)
+	double aspectRatio = static_cast<double>(imgWidth) / imgHeight;
+
+
+	std::string opImgFile = "movableCam_output.ppm";
 	int samplesPerPixel = 100;
 	int depthReflections = 50;
 	int colorDepth = 8;				//goes from 0 to 255 for representing intensity level of a pixel
 
-	Camera camera(camCenter, 1, viewportHeight, viewportWidth, imgWidth, imgHeight);
+	Camera camera(imgHeight, imgWidth, camCenter, camTarget, worldUp, 90.0, 1, aspectRatio);
 	Image image(imgHeight, imgWidth);
 	std::unique_ptr<ImageWriter> writer = std::make_unique<PPMImageWriter>();
 
