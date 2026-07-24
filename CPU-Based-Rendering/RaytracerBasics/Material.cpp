@@ -53,7 +53,7 @@ Ray Metal::getRay(const Ray& incidentRay, Point3 intersectionPt, Vector3 normal)
 		while (1) {
 			tries++;
 			if (tries > 1000) {
-				std::cout << "Exceeded tries, returning...\n";
+				//std::cout << "Exceeded tries, returning...\n";
 				return Ray(intersectionPt, reflected.getNormalized());
 			}
 			double x = randomDouble(-1.00, 1.00);
