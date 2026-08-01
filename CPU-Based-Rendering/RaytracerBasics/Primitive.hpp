@@ -4,11 +4,13 @@
 #include "UtilityClasses.hpp"
 #include "HitRecord.hpp"
 #include "Material.hpp"
-
+#include "AABB.hpp"
 
 class Primitive {
 public:
 	virtual bool intersect(const Ray& ray, HitRecord& record) = 0;
+	virtual AABB getBoundingBox() = 0;
+	virtual Point3 getCenter() = 0;
 	virtual ~Primitive() = default;
 
 };
@@ -24,6 +26,9 @@ public:
 
 	bool intersect(const Ray& ray, HitRecord& record);
 
+	Point3 getCenter();
+
+	AABB getBoundingBox();
 
 };
 

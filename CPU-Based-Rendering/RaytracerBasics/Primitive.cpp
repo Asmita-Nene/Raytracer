@@ -35,8 +35,14 @@ bool Sphere::intersect(const Ray& ray, HitRecord& record) {
 	else {
 		return false;
 	}
-
-	
-
 }
 
+Point3 Sphere::getCenter() {
+	return center;
+}
+
+AABB Sphere::getBoundingBox() {
+	Point3 minPt = center - Point3(radius, radius, radius);
+	Point3 maxPt = center + Point3(radius, radius, radius);
+	return AABB(minPt, maxPt);
+}

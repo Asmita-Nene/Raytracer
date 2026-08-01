@@ -123,6 +123,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AABB.cpp" />
+    <ClCompile Include="BVHNode.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ImageClasses.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -133,6 +135,8 @@
     <ClCompile Include="UtilityClasses.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AABB.hpp" />
+    <ClInclude Include="BVHNode.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="HitRecord.hpp" />
     <ClInclude Include="ImageClasses.hpp" />

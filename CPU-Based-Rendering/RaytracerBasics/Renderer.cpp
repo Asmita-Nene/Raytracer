@@ -51,7 +51,6 @@ void Renderer::renderImage() {
 
 	Vector3 normal;
 	double offsetX, offsetY;
-	
 
 	for (int i = 0; i < imgHeight; i++) {
 		for (int j = 0; j < imgWidth; j++) {

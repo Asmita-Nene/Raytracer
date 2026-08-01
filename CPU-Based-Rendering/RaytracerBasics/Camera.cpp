@@ -3,8 +3,6 @@
 #include"UtilityClasses.hpp"
 #include"Camera.hpp"
 
-//TODO fix the bug where scene is not rendered correctly for y > 1 (y = camCenter co-ord)
-
 Camera::Camera(int imageHeight, int imageWidth, const Point3& position, const Point3& target, const Vector3& worldUp, double vertFOV, double focalLength, double aspect) :
 	imageHeight(imageHeight), imageWidth(imageWidth), position(position), target(target), worldUp(worldUp), vertFOV(vertFOV), focalLength(focalLength), aspectRatio(aspect)
 {
