@@ -19,7 +19,7 @@ Milestones planned:
 - [x] Metal materials with isotropic roughness
 - [x] Metal materials with anisotropic roughness (see known limitations)
 - [x] Dielectric / glass materials
-- [ ] BVH acceleration structure
+- [x] BVH acceleration structure
 - [ ] Point lights and shadows
 - [ ] CUDA / GPU rendering
 
