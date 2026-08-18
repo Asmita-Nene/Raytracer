@@ -4,10 +4,10 @@
 #include "UtilityClasses.hpp"
 
 class AABB {
+public:
 	Point3 minPt;
 	Point3 maxPt;
 
-public:
 	AABB(const Point3& min, const Point3& max);
 	AABB();
 	bool isIntersect(const Ray& ray) const ;

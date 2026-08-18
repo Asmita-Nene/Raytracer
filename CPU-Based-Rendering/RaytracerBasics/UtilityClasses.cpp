@@ -76,6 +76,12 @@ void Vector3::display() const{
 		return sqrt((x * x) + (y * y) + (z * z));
 	}
 
+	double Vector3::operator[](int axis) const {
+		if (axis == 0) return x;
+		if (axis == 1) return y;
+		return z;
+	}
+
 
 
 

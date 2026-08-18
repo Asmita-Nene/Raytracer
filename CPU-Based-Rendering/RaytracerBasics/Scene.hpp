@@ -23,6 +23,12 @@ public:
 
 	void addPrimitiveObject(std::unique_ptr<Primitive> obj);
 
+	double getSurfaceArea(const AABB& bbox);
+
+	double evaluateAxis(const size_t& startIdx, const size_t& stopIdx, size_t& outSplitIdx);
+
+	double getSplitCost(const AABB& parentBox, const AABB& leftBox, const AABB& rightBox, const size_t& leftChildren, const size_t& rightChildren);
+
 	std::unique_ptr<BVHNode> generateBVHTree(const size_t& startIdx, const size_t& stopIdx);		//recursive function that generates the BVH tree uing random axes for splitting the boxes
 
 	void initializeBVH();

@@ -27,7 +27,7 @@ int main() {
 
 
 	//------------------------------------------------Output file setup--------------------------------------------------------//
-	std::string opImgFile = "complexSceneWithBVHNoPrune.ppm";	
+	std::string opImgFile = "complexSceneWithBVHSAH.ppm";	
 	Image image(imgHeight, imgWidth);
 	std::unique_ptr<ImageWriter> writer = std::make_unique<PPMImageWriter>();
 
@@ -146,22 +146,22 @@ int main() {
 
     //BVH Tree construction shoudl be seperate from the render pipeline
     scene.initializeBVH();
-    renderer.renderImage();
-    writer->writeData(opImgFile, image, colorDepth, 2.2f);
+    //renderer.renderImage();
+    //writer->writeData(opImgFile, image, colorDepth, 2.2f);
 
-////for checking the average time to render the scene with 14 objects(to be kept same for time comparisons)
-//   double time_agg = 0;
-//    for (int i = 0; i < 10; i++) {
-//        auto start = std::chrono::steady_clock::now();
-//        renderer.renderImage();
-//        auto end = std::chrono::steady_clock::now();
-//        auto elapsed = end - start;
-//        time_agg += std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-//    }
-//    std::cout << "Average time to render the scene with BVH without pruning: ";
-//    std::cout << time_agg/10.0 << " ms\n";
-//
-//    writer->writeData(opImgFile, image, colorDepth, 2.2f);
+//for checking the average time to render the scene with 14 objects(to be kept same for time comparisons)
+   double time_agg = 0;
+    for (int i = 0; i < 10; i++) {
+        auto start = std::chrono::steady_clock::now();
+        renderer.renderImage();
+        auto end = std::chrono::steady_clock::now();
+        auto elapsed = end - start;
+        time_agg += std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
+    }
+    std::cout << "Average time to render the scene with SAH in BVH : ";
+    std::cout << time_agg/10.0 << " ms\n";
+
+    writer->writeData(opImgFile, image, colorDepth, 2.2f);
 
 	return 0;
 }

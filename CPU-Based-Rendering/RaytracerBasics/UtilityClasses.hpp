@@ -41,6 +41,8 @@ public:
 
 	double getMagnitude() const;
 
+	double operator[](int axis) const;
+
 };
 
 
