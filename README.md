@@ -10,7 +10,6 @@ Started this to get hands-on with systems-level C++ and eventually CUDA. The goa
 ## Current State
  
 The renderer currently supports diffuse and metal materials with physically-based reflection. Metal supports both isotropic (uniform roughness) and anisotropic (directional roughness) modes.  
-Before implementation of BVH the average time to render a scene with 14 spheres was 16255.5 ms. This time can be greatly reduced after implementation of BVH.
  
 Milestones planned:
 - [x] Core ray-object intersection
@@ -19,7 +18,8 @@ Milestones planned:
 - [x] Metal materials with isotropic roughness
 - [x] Metal materials with anisotropic roughness (see known limitations)
 - [x] Dielectric / glass materials
-- [x] BVH acceleration structure
+- [x] BVH acceleration structure(with SAH)
+- [ ] Meshes
 - [ ] Point lights and shadows
 - [ ] CUDA / GPU rendering
 
