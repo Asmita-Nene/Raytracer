@@ -160,6 +160,7 @@ bool Scene::traverseBVH(const std::unique_ptr<BVHNode>& node, const Ray& ray, Hi
 	}
 
 	// Leaf node — both children null means leaf now, not leafObj != nullptr
+
 	if (node->left == nullptr && node->right == nullptr) {
 		bool hitAny = false;
 		for (size_t i = node->startIdx; i < node->stopIdx; i++) {

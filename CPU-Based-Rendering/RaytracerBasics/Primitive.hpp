@@ -32,4 +32,24 @@ public:
 
 };
 
+
+class Triangle : public Primitive {
+	Point3 V0, V1, V2;
+	Vector3 normal;
+	Point3 center;		//actually the centroid, but keepin it center for simplicity
+	Material* material;
+	bool enableBackfaceCulling;		//when enabled, the triangle whose normal faces away from the camera is not rendered(optimization for opaque), should be disabled for glass and transparent things
+
+public:
+
+	Triangle(const Point3& V0, const Point3& V1, const Point3& V2, const Vector3& normal, Material* material, bool enableBC = true);	//backface culing enabled by default
+
+	bool intersect(const Ray& ray, HitRecord& record);
+
+	Point3 getCenter();
+
+	AABB getBoundingBox();
+
+};
+
 #endif // !PRIMITIVE_HPP

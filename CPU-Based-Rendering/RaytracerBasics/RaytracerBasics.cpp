@@ -9,12 +9,14 @@
 #include"ImageClasses.hpp"
 #include"UtilityClasses.hpp"
 #include "Material.hpp"
+#include"ObjFileHandle.hpp"
+
 
 
 int main() {
 	//--------------------------------Camera Setup parameters and object creation---------------------------------------------------------------------------//
 
-    Point3 camCenter(0, 2, 5);
+    Point3 camCenter(0, 0, 0);
     Point3 camTarget(0, 0, -3);
 
 	int imgHeight = 200;
@@ -27,7 +29,7 @@ int main() {
 
 
 	//------------------------------------------------Output file setup--------------------------------------------------------//
-	std::string opImgFile = "complexSceneWithBVHSAH.ppm";	
+	std::string opImgFile = "SuzanneObj.ppm";	
 	Image image(imgHeight, imgWidth);
 	std::unique_ptr<ImageWriter> writer = std::make_unique<PPMImageWriter>();
 
@@ -40,127 +42,17 @@ int main() {
 
 	//-----------------------------------------------------------------Scene Setup----------------------------------------------//
 
-    // Stores all materials so that Sphere can store the Material*
-    std::vector<std::unique_ptr<Material>> materials;
-
-    // Ground
-
-    materials.push_back(
-        std::make_unique<Diffuse>(Color(0.1, 0.1, 0.1))
-    );
-
-    scene.addPrimitiveObject(
-        std::make_unique<Sphere>(
-            Point3(0, -1000.5, 0),
-            1000,
-            materials.back().get()
-        )
-    );
-
-
-    // Main Spheres
-   
-    materials.push_back(
-        std::make_unique<Diffuse>(Color(0.99, 0.2, 0.2))
-    );
-
-    scene.addPrimitiveObject(
-        std::make_unique<Sphere>(
-            Point3(0, 0.7, -2.5),
-            1.0,
-            materials.back().get()
-        )
-    );
-
-    
-    materials.push_back(
-        std::make_unique<Dielectric>(
-            1.5,
-            Color(1, 1, 1)
-        )
-    );
-
-    scene.addPrimitiveObject(
-        std::make_unique<Sphere>(
-            Point3(-2.5, 0.5, -3.5),
-            0.8,
-            materials.back().get()
-        )
-    );
-
-
-    materials.push_back(
-        std::make_unique<Metal>(
-            Color(0.4, 0.5, 0.5),
-            0.5,
-            0.5
-        )
-    );
-
-    scene.addPrimitiveObject(
-        std::make_unique<Sphere>(
-            Point3(2.5, 0.5, -3.5),
-            0.8,
-            materials.back().get()
-        )
-    );
-
-// Sphere 1
-    materials.push_back(std::make_unique<Diffuse>(Color(0.9, 0.2, 0.2)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(-4.5, 0.25, -1.5), 0.25, materials.back().get()));;
-
-    // Sphere 3
-    materials.push_back(std::make_unique<Diffuse>(Color(0.2, 0.2, 0.9)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(-1.5, 0.25, -6.0), 0.25, materials.back().get()));
-
-    // Sphere 4
-    materials.push_back(std::make_unique<Diffuse>(Color(0.9, 0.9, 0.2)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(1.0, 0.25, -5.5), 0.25, materials.back().get()));
-
-    // Sphere 5
-    materials.push_back(std::make_unique<Diffuse>(Color(0.9, 0.4, 0.1)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(3.5, 0.25, -6.5), 0.25, materials.back().get()));
-
-    // Sphere 6
-    materials.push_back(std::make_unique<Diffuse>(Color(0.2, 0.8, 0.8)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(4.5, 0.25, -2.0), 0.25, materials.back().get()));
-
-    // Sphere 7
-    materials.push_back(std::make_unique<Diffuse>(Color(0.8, 0.2, 0.8)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(-1.0, 0.25, -1.5), 0.25, materials.back().get()));
-
-    // Sphere 8
-    materials.push_back(std::make_unique<Diffuse>(Color(0.5, 0.8, 0.3)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(2.0, 0.25, -1.0), 0.25, materials.back().get()));
-
-    // Sphere 9
-    materials.push_back(std::make_unique<Diffuse>(Color(0.3, 0.5, 0.9)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(-5.0, 0.25, -7.0), 0.25, materials.back().get()));
-
-    // Sphere 10
-    materials.push_back(std::make_unique<Diffuse>(Color(0.8, 0.8, 0.8)));
-    scene.addPrimitiveObject(std::make_unique<Sphere>(Point3(5.0, 0.25, -7.5), 0.25, materials.back().get()));
-
-
+	std::vector<std::unique_ptr<Material>> materials;
+	ObjFileHandle handle(".\\objFiles\\blender_suzanne.obj");
+	if (!handle.constructScene(scene, materials)) {}
+	
 	//--------------------------------------------------scene rendering and writing to file---------------------------------------------------//
 
     //BVH Tree construction shoudl be seperate from the render pipeline
     scene.initializeBVH();
-    //renderer.renderImage();
-    //writer->writeData(opImgFile, image, colorDepth, 2.2f);
-
-//for checking the average time to render the scene with 14 objects(to be kept same for time comparisons)
-   double time_agg = 0;
-    for (int i = 0; i < 10; i++) {
-        auto start = std::chrono::steady_clock::now();
-        renderer.renderImage();
-        auto end = std::chrono::steady_clock::now();
-        auto elapsed = end - start;
-        time_agg += std::chrono::duration_cast<std::chrono::milliseconds>(elapsed).count();
-    }
-    std::cout << "Average time to render the scene with SAH in BVH : ";
-    std::cout << time_agg/10.0 << " ms\n";
-
+    std::cout << "\n\n Tree Built\n\n";
+    renderer.renderImage();
+    std::cout << "after render\n";
     writer->writeData(opImgFile, image, colorDepth, 2.2f);
 
 	return 0;
